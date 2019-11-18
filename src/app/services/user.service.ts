@@ -14,28 +14,31 @@ export class UserService {
   }
 
   init(){
-    let request : IDBOpenDBRequest = indexedDB.open(UserService.DB_NAME,1);
+    let request : IDBOpenDBRequest = indexedDB.open(UserService.DB_NAME,10);
     return new Promise((resolve,reject)=>{
       request.onerror = function(event){
-        reject(new Error("Error opening database "+event));
+        throw new Error("Error opening database "+event);
       };
-      request.onsuccess = function(event:Event){
-        let target : IDBOpenDBRequest = <IDBOpenDBRequest>event.target;
+      request.onsuccess = function(){
+        resolve("Done");
+      };
+      request.onupgradeneeded = function(event:Event){
+          let target : IDBOpenDBRequest = <IDBOpenDBRequest>event.target;
           let db : IDBDatabase = target.result;
           let objectStorage = db.createObjectStore(UserService.OBJECT_STORAGE_NAME,{keyPath:"id"});
           objectStorage.transaction.oncomplete = function(event){
             let objectStorage = db.transaction(UserService.OBJECT_STORAGE_NAME,"readwrite").objectStore(UserService.OBJECT_STORAGE_NAME);
             UserService.INITIAL_USER_LIST.forEach(user=>{
               objectStorage.add(user);
-              resolve("Done");  
-            })
+            });
+            resolve("Done");
           };
-      }
+      };
     });
   }
 
   loadUserList():Promise<User[]>{
-    let request : IDBOpenDBRequest = indexedDB.open(UserService.DB_NAME,1);
+    let request : IDBOpenDBRequest = indexedDB.open(UserService.DB_NAME,10);
 
     return new Promise((resolve,reject)=>{
       request.onerror = function(event){
@@ -55,6 +58,7 @@ export class UserService {
           let cursor = target.result;
           if(cursor){
             userList.push(cursor.value);
+            cursor.continue();
           }else{
             resolve(userList);
           }
