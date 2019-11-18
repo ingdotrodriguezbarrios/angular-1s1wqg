@@ -20,7 +20,11 @@ export class UserService {
     let db : IDBDatabase = target.result;
     let objectStorage = db.createObjectStore(UserService.OBJECT_STORAGE_NAME,{keyPath:"id"});
     objectStorage.transaction.oncomplete = function(event){
-      db.transaction(UserService.OBJECT_STORAGE_NAME,"readwrite")
+      let objectStorage = db.transaction(UserService.OBJECT_STORAGE_NAME,"readwrite").objectStore(UserService.OBJECT_STORAGE_NAME);
+      UserService.INITIAL_USER_LIST.forEach(user=>{
+        objectStorage.add(user);  
+      })
+      
     };
   }
 }
