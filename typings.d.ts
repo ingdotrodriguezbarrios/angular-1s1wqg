@@ -1,5 +1,3 @@
-//
-
 interface Window {
   jasmineRequire: any;
   jasmineRef: any;
