@@ -1,3 +1,15 @@
 <p>
-  userlist works!
+  <h1>User List</h1>
+  <table>
+    <thead>
+      <th>id</th>
+      <th>name</th>
+      <th>email</th>
+    </thead>
+    <tr *ngFor="let user of userList">
+      <td>{user.id}</td>
+      <td>{user.name}</td>
+      <td>{user.email}</td>
+    </tr>
+  </table>
 </p>
