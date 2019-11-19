@@ -1,15 +1,16 @@
-<p>
-  <h1>User List</h1>
-  <table>
+  <h3>User List</h3>
+  <table class="table table-sm table-hover">
     <thead>
       <th>id</th>
       <th>name</th>
       <th>email</th>
     </thead>
-    <tr *ngFor="let user of userList">
-      <td>{user.id}</td>
-      <td>{user.name}</td>
-      <td>{user.email}</td>
-    </tr>
+    <tbody>
+      <tr *ngFor="let user of userList">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td><a style></a></td>
+      </tr>
+    </tbody>
   </table>
-</p>
