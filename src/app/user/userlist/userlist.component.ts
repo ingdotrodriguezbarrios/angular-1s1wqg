@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { faDelete,faEdit } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from './../../services/user.service';
 import { User } from './../../model/user';
 
