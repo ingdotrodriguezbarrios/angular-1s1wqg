@@ -15,5 +15,4 @@ export class UserlistComponent implements OnInit {
   async ngOnInit() {
     this.userList = await this.userService.loadUserList();
   }
-
 }

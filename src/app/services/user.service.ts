@@ -67,4 +67,28 @@ export class UserService {
     });
   }
 
+  get(id:number):Promise<User>{
+    let request : IDBOpenDBRequest = indexedDB.open(UserService.DB_NAME,10);
+
+    return new Promise((resolve,reject)=>{
+      request.onerror = function(event){
+        reject(new Error("Error opening database "+event));
+      }
+      request.onsuccess = function(event){
+        let target : IDBOpenDBRequest = <IDBOpenDBRequest>event.target;
+        let db : IDBDatabase = target.result;
+        let objectStorage = db.transaction(UserService.OBJECT_STORAGE_NAME).objectStore(UserService.OBJECT_STORAGE_NAME);
+        let userList : User[] = [];
+        let request = objectStorage.get(id);
+        request.onerror = function(ev){
+          reject(new Error("Error opening cursor "+ev));
+        }
+        request.onsuccess = function(ev){
+          let target :IDBRequest= <IDBRequest>ev.target;
+          resolve(<User>target.result);
+        }
+      }
+    });
+  }
+
 }

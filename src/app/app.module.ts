@@ -7,14 +7,23 @@ import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesom
 import { faTrash,faEdit,faSearch } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from "./services/user.service";
 import { UserlistComponent } from "./user/userlist/userlist.component";
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { UserCreateEditComponent } from './user/user-create-edit/user-create-edit.component';
+import { UserDeleteComponent } from './user/user-delete/user-delete.component';
 
 @NgModule({
    imports: [
     BrowserModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule.forRoot([
+      { path: '', component: UserlistComponent },
+      { path: 'user/:userId', component: UserDetailComponent },
+      { path: 'userAdd/:userId', component: UserCreateEditComponent },
+      { path: 'userAdd', component: UserCreateEditComponent }
+    ])
   ],
-  declarations: [UserlistComponent],
+  declarations: [UserlistComponent, UserDetailComponent, UserCreateEditComponent, UserDeleteComponent],
   bootstrap: [UserlistComponent],
   providers: [UserService]
 })

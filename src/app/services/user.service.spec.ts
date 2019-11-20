@@ -18,4 +18,13 @@ describe('Service: UserService', () => {
       done();
     });
   });
+
+  it('should bring one user', (done: DoneFn) => {
+    service.get(1).then((user:User)=>{
+      expect(user).toBeDefined();
+      expect(user.id).toBe(UserService.INITIAL_USER_LIST[0].id);
+      expect(user.email).toBe(UserService.INITIAL_USER_LIST[0].email);
+      done();
+    });
+  });
 });

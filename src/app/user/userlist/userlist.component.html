@@ -1,5 +1,5 @@
   <hr/>
-  <button class="btn btn-primary btn-sm float-right">Agregar Usuario</button>
+  <a [routerLink]="['/userAdd']" class="btn btn-primary btn-sm float-right text-white">Agregar Usuario</a>
   <h3>User List</h3>
   <hr/>
   <table class="table table-sm table-hover">
@@ -14,9 +14,9 @@
         <td>{{user.id}}</td>
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
-        <td><fa-icon [icon]="['fas', 'search']"></fa-icon></td>
-        <td><fa-icon [icon]="['fas', 'edit']"></fa-icon></td>
-        <td><fa-icon [icon]="['fas', 'trash']"></fa-icon></td>
+        <td><a [routerLink]="['/user', user.id]"><fa-icon [icon]="['fas', 'search']"></fa-icon></a></td>
+        <td><a [routerLink]="['/userAdd', user.id]"><fa-icon [icon]="['fas', 'edit']"></fa-icon></a></td>
+        <td><a><fa-icon [icon]="['fas', 'trash']"></fa-icon></a></td>
       </tr>
     </tbody>
   </table>
